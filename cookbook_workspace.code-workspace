@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.pythonPath": "${workspaceFolder}\\venv\\Scripts\\python.exe",
+		"liveSassCompile.settings.formats": [
+			{
+				"format": "expanded",
+				"extensionName": ".css",
+				"savePath": "/static/css/"
+			}
+		],
+		"liveSassCompile.settings.excludeList": [
+			"**/node_modules/**",
+			".vscode/**"
+		],
+		"mongoShell.path": "C:\\Program Files\\MongoDB\\Server\\4.0\\bin\\mongo.exe",
+		"mongoShell.port": "27017",
+		"mongoShell.host": "C:\\Program Files\\MongoDB\\Server\\4.0\\bin\\",
+		"python.linting.pep8Enabled": true
+	}
+}

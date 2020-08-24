@@ -1,0 +1,238 @@
+// Global styling for this template
+body {
+    overflow-x: hidden;
+    @include body-font;
+}
+a {
+    color: $primary;
+    cursor: pointer;
+    &:hover {
+        color: darken($orange, 10%);
+    }
+}
+.text-primary {
+    color: $primary !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    @include sans-serif-font;
+}
+section {
+    padding: 30px 0;
+    padding-top: 50px; 
+    h2.section-heading {
+        font-size: 40px;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    h3.section-subheading {
+        font-size: 16px;
+        font-weight: 400;
+        font-style: italic;
+        margin-bottom: 5px;
+        text-transform: none;
+        @include sans-serif-font;
+    }
+}
+.section-content {
+    padding-top: 30px;
+}
+.generalMessages {
+    font-weight: 700;
+    color: $orange;
+}
+@media(min-width:768px) {
+    section {
+        padding: 30px 0;
+        padding-top: 50px; 
+    }
+}
+
+// FORMS
+#signupForm {
+    label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        padding-left:10px;
+    }
+}
+
+// Button Styles
+.btn {
+    @include sans-serif-font;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.3rem;
+    font-size: 0.9rem;
+    border-radius:0.25rem;
+}
+html [type=button] {
+    -webkit-appearance: initial!important;
+}
+.btn-xl {
+    font-size: 18px;
+    padding: 20px 40px;
+}
+.btn-primary {
+    background-color: $primary;
+    border: 2px solid $blackolive!important;
+    &:active,
+    &:focus,
+    &:hover {
+        background-color: darken($cyan, 7.5%) !important;
+        border-color: darken($cyan, 7.5%) !important;
+        color: $orange;
+    }
+    &:active,
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(242, 101, 34, .5) !important;
+    }
+}
+
+// Highlight color customization
+::-moz-selection {
+    background: $primary;
+    text-shadow: none;
+}
+::selection {
+    background: $primary;
+    text-shadow: none;
+}
+img::selection {
+    background: transparent;
+}
+img::-moz-selection {
+    background: transparent;
+}
+.modal-footer>span{
+    margin-right: 6rem!important;
+}
+.search-param {
+    font-weight: 700;
+    font-style: italic;
+    color: $orange;
+}
+#user-name-wrapper, #user-name-wrapper-notloggedin {
+    padding: 0;
+    padding-top: 77px;
+    text-align: center;
+    margin-right: auto;    
+    @media (min-width: 576px) {
+        padding-top: 123px;
+    }
+}
+
+// DELETE RECIPE POPUP
+
+.ui-dialog-titlebar, .ui-dialog-buttonset {
+    height: 4rem;
+    background-color: $blackolive;
+    color: $offwhite;
+    font-weight: 700;
+    padding: 1rem 1rem;
+    border-radius: 0.2rem;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    span {
+        font-size: 1.3rem;
+    }
+    button {
+        margin-right: 10px;
+    }
+}
+.ui-dialog-buttonset {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+}
+
+.ui-dialog-titlebar button {
+    float:right;
+    line-height: 0.9rem;
+}
+.ui-dialog-titlebar-close {
+    display: none;
+}
+.ui-dialog-content {
+    background-color: $cyan;
+    padding: 8%;
+    padding-bottom: 30%;
+    p {
+        font-weight: 600;
+        color: $offwhite;
+    }
+}
+
+@media(min-width:320px) {
+    .userwelcome {
+        min-width: 30%;
+        position: fixed;
+        width: 90%;
+        z-index: 1020;
+        margin: 0 auto;
+        color:#fff;
+        background-color:$cyanrgba;
+        border: 1px solid transparent;
+        border-radius: 1rem;
+        border-top-left-radius: 0rem;
+        border-top-right-radius: 0rem;
+        box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.4);
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        span {
+            white-space: nowrap;
+        }    
+    }
+    .home-userwelcome {
+        background-color: rgba(245, 245, 245, 0.9);
+        color:$blackolive;
+        min-width: 30%;
+        position: absolute;
+        width: 90%;
+        z-index: 1020;
+        margin: 0 auto;
+        border: 1px solid transparent;
+        border-radius: 1rem;
+        border-top-left-radius: 0rem;
+        border-top-right-radius: 0rem;
+        box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.4);
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        span {
+            white-space: nowrap;
+        }
+    }
+
+}
+
+@media(min-width:576px) {
+    .userwelcome {
+        margin-left: 40%;
+        width: 50%;
+    }
+    .home-userwelcome {
+        background-color: rgba(245, 245, 245, 0.9);
+        color:$blackolive;
+    }
+}
+
+@media(min-width:768px) {
+    .userwelcome {
+        width: 40%;
+        margin-left:50%;
+    }
+    .home-userwelcome {
+        background-color: rgba(245, 245, 245, 0.9);
+        color:$blackolive;
+    }
+    .btn {
+        padding: 0.3rem;
+    }
+}
+

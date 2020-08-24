@@ -1,0 +1,74 @@
+.m-desc-hide {
+    display: none;
+}
+@media (min-width: 576px) {
+    .m-desc-hide {
+        display:block;
+    }
+}
+.pagination-page-info {
+    padding: .6em;
+    padding-left: 0;
+    width: 40em;
+    margin: .5em;
+    margin-left: 0;
+    font-size: 12px;
+}
+.pagination-page-info b {
+    color: black;
+    background: #6aa6ed;
+    padding-left: 2px;
+    padding: .1em .25em;
+    font-size: 150%;
+}
+.section-content .myrecipe-table-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+.prev-span{
+    width:136px;
+    display: inline-block;
+}
+.paging{
+    margin-top: 20px;
+}
+.previous {
+    border-radius: 0.25rem;
+    color: $white;
+    background-color: $cyan;
+    width: 140px;
+    padding: 5px 10px;
+}
+.next {
+    width: 120px;
+    padding: 5px 10px;
+    border-radius: 0.25rem;
+    color: $white;
+    background-color: $cyan;
+}
+.table-header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: $palesilver;
+}
+.table-content {
+    background-color: $gray-200;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+.t-align{
+    line-height:2.5rem;
+    @media (min-width:768px){
+        line-height:4.5rem;
+    }
+}
+.managebtn {
+    width: 45px;
+    width: 70px;
+    border: 2px solid $blackolive;
+}
+.recipe-img{
+    display: inline-block;
+    width: 20px;
+}

@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block template_content %}
+<!-- PAGE CONTENT-->
+<section class="section-heading">
+    <div class="container">
+        <!-- PAGE HEADER -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1>{{ recipe.name }}</h1>
+                    <!-- CREATED BY AND DATE -->
+                    <p class="text-muted createdby">Created by: <span>{{recipeauthor.username.title()}}</span> on
+                        <span>{{recipe['dateCreated'].strftime('%d-%b-%Y')}}</span></p>
+                    <h3 class="section-subheading text-muted">{{ recipe.description }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- PAGE HEADER -->
+<section class="section-heading">
+    <div class="container">
+        <div class="container-fluid">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs hidden-md-up" role="tablist">
+                <li class="nav-item" id="hometab"><a class="nav-link active" href="#home" aria-controls="home"
+                        data-toggle="tab">Details</a></li>
+                <li class="nav-item" id="ptab"><a class="nav-link" href="#myrecipes" aria-controls="myrecipes"
+                        data-toggle="tab">Instructions</a></li>
+            </ul>
+            <!-- VIEW RECIPE DETAILS-->
+            <div class="tab-content container-fluid" id="recipe-info">
+                <div class="row">
+                    <!-- COLUMN 1 RECIPE INFO -->
+                    <div role="tabpanel" class="tab-pane active col-12 col-md-4 left-col" id="home">
+                        <!-- RECIPE IMAGE -->
+                        {% if recipe.image_url != "" %}
+                        <div class="recipe-image">
+                            <img src="{{ recipe.image_url }}" alt="image of {{ recipe.name }}" title="Image of {{ recipe.name }}" />
+                        </div>
+                        {% else %}
+                        <div class="recipe-image">
+                            <img src="{{ url_for('static', filename='img/recipes/default_food.png')}}" alt="No image was supplied of {{ recipe.name }} this is a default image"
+                                title="No image was supplied of {{ recipe.name }} this is a default image" />
+                        </div>
+                        {% endif %}
+                        <!-- UTILITIES PRINT/RATE-->
+                        <div class="row text-center utilities">
+                            {% if (recipe.author != session['userid']) and (session['isLoggedin'] == True)%}
+                            <div class="col-4">
+                                <a type="submit" action="{{ url_for('update_vote', recipe_id=recipe._id) }}" id="rateme"
+                                    name="rateme" alt="Rate this recipe" title="Rate this recipe"><img
+                                    src="{{ url_for('static', filename='img/recipes/like.png')}}" alt="Rate me">Rate</a>
+                            </div>
+                            {% endif %}
+                            <div class="col">
+                                <a href="#" onclick="window.print();return false;" alt="Print this recipe" title="Print this recipe"><img
+                                        src="{{ url_for('static', filename='img/recipes/print.png')}}" alt="Print"
+                                        class="print">Print</a>
+                            </div>
+                            <div class="col">
+                                    <img src="{{ url_for('static', filename='img/recipes/like.png')}}" alt="Rate me"><span id="vote_result">{{ recipe.votes }}</span>
+                            </div>
+                        </div>
+                        <!-- MESSAGES -->
+                        <div id="ratemeMessages" class="form-group mt-1 text-center generalMessages">
+                        </div>
+                        <!-- RECIPE INFO -->
+                        <div class="recipe-details">
+                            <div class="container">
+                                <!-- DETAILS -->
+                                <div class="row">
+                                    <div class="col-6 detail-title">
+                                        <ul class="detail-item">
+                                            <li>Main Ingredient:</li>
+                                            <li>Category:</li>
+                                            <li>Cuisine:</li>
+                                            <li>Calories:</li>
+                                            <li>Allergens:</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-6 detail-value">
+                                        <ul class="detail-item">
+                                            <li>{{ recipe.main_ingredient.title() }}</li>
+                                            <li>{{ recipe.category }}</li>
+                                            <li>{{ recipe.cuisine }}</li>
+                                            {% if recipe.calories != "" %}
+                                            <li>{{ recipe.calories }}</li>
+                                            {% else %}
+                                            <li>No calories listed</li>
+                                            {% endif %}
+                                            {% if recipe.allergens|length > 0 %}
+                                                {% for allergen in recipe.allergens %}
+                                                <li>{{ allergen }}</li>
+                                                {% endfor %}
+                                            {% else %}
+                                                <li>No Allergens listed</li>
+                                            {% endif %}
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- COLUMN 2 INGREDIENTS AND INSTRUCTIONS -->
+                    <div role="tabpanel" class="tab-pane col-12 col-md-8 right-col" id="myrecipes">
+                        <!-- RECIPE INGREDIENTS -->
+                        <div class="row" id="ingredients">
+                            {% if recipe.ingredients|length > 2 %}
+                            {% for ingredient_col in recipe.ingredients | slice(2) %}
+                            <div class="col-12 col-md-6">
+                                <ul>
+                                    {% for ingredient in ingredient_col %}
+                                    <li><img src="{{ url_for('static', filename='img/recipes/chili.png')}}">{{ingredient
+                                        }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <!-- RECIPE PREP COOK SERVES DIFFICULTY -->
+                        <div class="row" id="recipe-info">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <ul>
+                                            <li><img src="{{ url_for('static', filename='img/recipes/timer.png')}}">Prep
+                                                time: {{recipe.prep_time }}
+                                            </li>
+                                            <li><img src="{{ url_for('static', filename='img/recipes/timer.png')}}">Cook
+                                                time: {{recipe.cook_time }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <ul>
+                                            <li><img src="{{ url_for('static', filename='img/recipes/spoon-and-fork.png')}}">Serves:
+                                                {{recipe.serves }}
+                                            </li>
+                                            <li><img src="{{ url_for('static', filename='img/recipes/apron.png')}}">Difficulty:
+                                                {{recipe.difficulty }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RECIPE INSTRUCTIONS -->
+                        <div class="row" id="instructions">
+                            <div class="col-12">
+                                <h4 class="recipe-heading"><img src="{{ url_for('static', filename='img/recipes/recipe.png')}}">
+                                    Instructions</h4>
+                                <ol>
+                                    {% for instruct in recipe.instructions %}
+                                    <div class="instuctions-line">
+                                        <li>{{ instruct }}</li>
+                                    </div>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="section-subheading text-muted pl-4">Last modified:
+                                    {{recipe['dateModified'].strftime('%d-%b-%Y')}}</p>
+                            </div>
+                        </div>
+                        <!-- BUTTONS -->
+                        {% if session['isLoggedin'] and session['userid'] == recipe['author'] %}
+                        <div class="row with-border">
+                            <div class="col-12 btn-row text-center">
+                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
+                                    type="button" id="editRecipeButton">Edit Recipe</a>
+                                <a href="#" type="button" class="btn btn-primary delete_recipe" id="{{ recipe._id }}">Delete
+                                    Recipe</a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div>&nbsp;</div>
+                        {% endif %}
+                        <!-- DELETE RECIPE POPUP-->
+                        <div id="confirm_delete" title="Delete Recipe" style="display:none">
+                            <p><span class="ui-icon ui-icon-alert ml-auto mr-auto" style="float:left; margin:12px 12px 20px 0;"></span>
+                                This recipe will be permanently deleted.<br>Are you sure?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BACK TO TOP -->
+<div class="row">
+    <div class="col-12">
+        <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
+    </div>
+</div>
+{% endblock %}
